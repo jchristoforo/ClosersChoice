@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+//using System.Windows.
+
+
+
+public partial class ClientInfo : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //does not work: Label1. = HorizontalAlign.Center;
+        //try to use css
+
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        //take text box values, creates client class instance, populates values, and client class inserts into db
+
+
+        Client person = new Client();
+
+        person.firstname = ClientFirstNameTB.Text;
+        person.lastname = ClientLastNameTB.Text;
+        person.emailaddress1 = ClientEmailAddr1TB.Text;
+        person.emailaddress2 = ClientEmailAddr2TB.Text;
+        person.currentaddress = ClientCurrentAddrTB.Text;
+        person.currenttown = ClientCurrentTownTB.Text;
+  /*      if(!string.IsNullOrEmpty(ClientCurrentZipCodeTB.Text)){
+            int.TryParse(ClientCurrentZipCodeTB.Text, out person.currentzipcode);
+        }
+        else{
+            person.currentzipcode = 00000;
+        }*/
+        person.phonenumberone = ClientPhone1TB.Text;
+        person.phonenumbertwo = ClientPhone2TB.Text;
+        //person.realtorID = int.TryParse(ClientRealtorTB.Text);
+        person.referralsource = ReferralTB.Text;
+        person.inspectiontype = InspectionTypeTB.Text;
+        person.clientusername = ClientUserNameTB.Text;
+        person.clientpassword = ClientPasswordTB.Text;
+        if (InspectionDoneCB.Checked)
+        {
+            person.inspectiondone = 1;
+        }
+        else
+        {
+            person.inspectiondone = 0;
+        }
+        if (InspectionViewedCB.Checked){
+            person.inspectionviewedbyclient = true;
+        }
+        else
+        {
+            person.inspectionviewedbyclient = false;
+        }
+        
+        
+        Createclient AddPerson = new Createclient();
+
+        AddPerson.createclient(person);
+
+        
+    }
+
+
+
+    protected void ReportDoneCB_CheckedChanged(object sender, EventArgs e)
+    {
+        
+        if (ReportDoneCB.Checked)
+        {
+            ViewReportBT.Visible = true;
+        }
+        else
+        {
+            ViewReportBT.Visible = false;
+        }
+    }
+}
